@@ -2,11 +2,10 @@ import Joi from "joi";
 import { generalValidation } from "../../middleWare/validation.middleWare.js";
 
 export const registerValidationSchema = Joi.object({
-    firstName:generalValidation.firstName.required(),
-    lastName:generalValidation.lastName.required(),
+    userName:generalValidation.firstName.required(),
     email:generalValidation.email.required(),
     role:generalValidation.role,
-    phone:generalValidation.phone.required(),
+    // phone:generalValidation.phone.required(),
     password:generalValidation.password.required(),
 })
 

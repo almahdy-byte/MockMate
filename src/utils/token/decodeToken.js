@@ -39,9 +39,10 @@ export const decodeToken = async(authorization , tokenType =tokenTypes.access  ,
         try {
             const decoded = await verify(token , signature);
             const user =await userModel.findOne({
-                _id:decoded.id,
-                isConfirmed:true
-            });
+                _id:decoded.id
+            }).select('-password');
+
+            
             if (!user) 
                 return next(new Error('Invalid token'));
             return { user, accessSignature };

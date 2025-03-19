@@ -16,7 +16,7 @@ export const createToken =async (role = Roles.user , payload = {})=>{
         default:
             break;
     }
-    let accessToken =await sign(payload , accessSignature , '30m');
+    let accessToken =await sign(payload , accessSignature , '14w');
     let refreshToken =await sign(payload , refreshSignature , '1w');
     return {
         accessToken ,

@@ -6,10 +6,10 @@ import { decodeToken } from "../utils/token/decodeToken.js";
 export const auth =()=>{
     return(asyncErrorHandler(async(req , res , next)=>{
         const authorization = req.headers['authorization'];
-        const {user} = await decodeToken(authorization , tokenTypes.access , next );
-        if(!user)
+        const data = await decodeToken(authorization , tokenTypes.access , next );
+        if(!data.user)
             return next(new Error('user not found' , {cause:StatusCodes.NOT_FOUND}))
-        req.user = user;
+        req.user = data.user;
         next()
     }))
 }

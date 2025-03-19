@@ -1,27 +1,89 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 export const interviewSchema = new Schema({
-    question:[{
-        type : String ,
-        required:true,
-        unique:true
-    }],
-    answers:[{
-        type : String ,
-        required:true,
-        unique:true
-    }],
-    score:{
-        type:Number,
+    position:{
+        type:String
     },
-    field :{
-        type : String
+    experience_years:{
+        type:String
     },
-    feedBack:[{
+    note:
+        {type:String},
+    degree:{type:String},
+
+    interviewQA:[{
+        difficulty:{
+            type:String
+        },
+        number:{
+            type:Number
+        },
+        question:{
+            type:String
+        } ,
+        answer:{
+            type:String,
+        },
+        status:{
+            type:String,
+            default:'not signed'
+        },
+        resource:[{
+            type:String
+        }]
+    }],
+    userId:{
+        type :Types.ObjectId,
+        required : true ,
+        ref:"Users"
+    },
+    isCompleted:{
+        type:Boolean,
+        default:false
+    },
+    report:{
+        type:String
+    },
+    total_score:{
+        type:Number
+    }, 
+    feedbackTips:[{
+        good:[
+            {
+                tip:{
+                    type:String,
+                },
+                status:{
+                    type:String,
+                    default:'good'
+                }
+            }
+        ],
+        medium:[
+            {
+                tip:{
+                    type:String,
+                },
+                status:{
+                    type:String,
+                }
+            }
+        ],
+        bad:[
+            {
+                tip:{
+                    type:String,
+                },
+                status:{
+                    type:String,
+                    default:'bad'
+                }
+            }
+        ]
     }]
 })
 
 
 
 
-export const interviewModel = model('Questions' , interviewSchema)
+export const interviewModel = model('Interview' , interviewSchema)

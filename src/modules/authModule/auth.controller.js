@@ -24,9 +24,9 @@ export const register = async(req , res , next)=>{
         email , 
         password : hash(password)
     })
-    
+    const {accessToken , refreshToken} = await createToken(user.role , {id : user._id});
     // emailEvent.emit('confirmEmail' ,({to : email , html}))
-    return res.status(StatusCodes.CREATED).json({success:true , user});
+    return res.status(StatusCodes.CREATED).json({success:true , user , accessToken , refreshToken});
 }
 
 // export const confirmEmail = async(req , res ,next)=>{
@@ -45,7 +45,7 @@ export const register = async(req , res , next)=>{
 
 export const logIn = async(req , res , next)=>{
     const {email , password} = req.body
-    const user = await userModel.findOne({email , isConfirmed:true , provider : Providers.system});
+    const user = await userModel.findOne({email});
     if(!user) 
         return next(new Error('user not found' , {cause:StatusCodes.NOT_FOUND}));
     if(!compare( password , user.password))
