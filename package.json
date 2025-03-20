@@ -8,10 +8,9 @@
     "dev": "node --watch --env-file=.env index.js",
     "start": "node index.js"
   },
- "engines": {
-  "node": "v20.15.0"
-}
-,
+  "engines": {
+    "node": "v20.15.0"
+  },
   "type": "module",
   "keywords": [],
   "author": "",
@@ -24,7 +23,9 @@
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
     "graphql": "^16.10.0",
+    "helmet": "^8.1.0",
     "http-status-codes": "^2.3.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
