@@ -9,9 +9,8 @@
     "start": "node index.js"
   },
   "engines": {
-  "node": ">=18"
-}
-,
+    "node": "v20.15.0"
+  },
   "type": "module",
   "keywords": [],
   "author": "",
