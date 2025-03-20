@@ -14,7 +14,7 @@ export const bootstrap = async (app, express) => {
 
     // CORS Configuration
     const corsOptions = {
-      origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+      origin:"*",
       credentials: true, // Allow cookies and authentication headers
       methods: ["GET", "POST", "PUT", "DELETE"], // Restrict allowed methods
       allowedHeaders: ["Content-Type", "Authorization"],
