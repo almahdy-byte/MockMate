@@ -18,7 +18,7 @@ router.post('/submit-interview/:interviewId' ,
     asyncErrorHandler(interviewServices.getInterviewResult)
 )
 router.get('/get-interviews/' , 
-    auth(),
+    // auth(),
     asyncErrorHandler(interviewServices.getAllInterviews)
 )
 export default router;
