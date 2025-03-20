@@ -9,7 +9,7 @@
     "start": "node index.js"
   },
  "engines": {
-  "node": ">=20"
+  "node": "v20.15.0"
 }
 ,
   "type": "module",

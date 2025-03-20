@@ -4,7 +4,8 @@ import { DBConnection } from "./DB/connection.js";
 import authRouter from "./modules/authModule/auth.router.js";
 import interviewRouter from "./modules/interviewModule/interview.router.js";
 import { globalErrorHandler } from "./utils/errorHandlers/globalErrorHandler.js";
-
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 export const bootstrap = async (app, express) => {
   try {
     // Connect to database
@@ -20,6 +21,19 @@ export const bootstrap = async (app, express) => {
     };
     app.use(cors(corsOptions));
 
+    app.use(rateLimit({
+      limit : 3,
+      message : 'to many requests , please try again later',
+      skipSuccessfulRequests : true,
+      handler:(req , res , next , options)=>{
+          return next(new Error(options.message , {cause : StatusCodes.TOO_MANY_REQUESTS}))
+      }
+  
+  }))
+  
+  app.use(helmet({
+      xPoweredBy:false
+  }))
     // Middleware
     app.use(express.json());
 

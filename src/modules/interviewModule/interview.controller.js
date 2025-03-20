@@ -9,7 +9,7 @@ export const generateQuestions = async (req, res, next) => {
 
     const {questions} = await generateQuestionsFromAi(position , note , experience_years , degree ,next)
         const interview = await interviewModel.create({
-            experience_years  , position , degree , interviewQA :questions , userId : req.user._id
+            experience_years  , position , degree , interviewQA :questions , userId : req.user._id , domain : position
         })
         return res.status(StatusCodes.ACCEPTED).json({interview})
 };
@@ -20,7 +20,7 @@ export const generateQuestions = async (req, res, next) => {
 export const getAllInterviews = async(req , res , next)=>{
     const interviews = await interviewModel.find({
         userId : req.user._id,
-    });
+    }).select('total_score position createdAt isCompleted')
     if(!interviews.length) 
         return next(new Error('interviews not found' , {cause : StatusCodes.NOT_FOUND}));
     return res.status(StatusCodes.ACCEPTED).json({success:true , interviews})
@@ -40,8 +40,9 @@ export const getInterviewResult = async (req, res, next) => {
         QA.map(e =>  {
             if(e._id.toString() === answer.questionId.toString())
                 {
-                if(!answer.answer) 
+                if(!answer.answer){
                     answer.answer ='not answered yet'
+                }
                 e.answer = answer.answer
                 }
             })
@@ -68,6 +69,5 @@ export const getInterviewResult = async (req, res, next) => {
         interview.isCompleted = true;
         interview.feedbackTips = feedbackTips
         await interview.save()
-        
         return res.status(StatusCodes.OK).json({ success: true  , interview});
         };
