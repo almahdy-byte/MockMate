@@ -6,6 +6,7 @@ import interviewRouter from "./modules/interviewModule/interview.router.js";
 import { globalErrorHandler } from "./utils/errorHandlers/globalErrorHandler.js";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
+import 'dotenv/config'
 export const bootstrap = async (app, express) => {
   try {
     // Connect to database
